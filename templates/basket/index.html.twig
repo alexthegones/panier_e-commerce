@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+  
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Mon panier</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+      <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col" class="text-center">Produit</th>
+          <th scope="col" class="text-center">Prix</th>
+          <th scope="col" class="text-center">Quantité</th>
+          <th scope="col" class="text-center">Total</th>
+          <th scope="col" class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for element in monPanier %}
+        <tr>
+            <td scope="row">{{ element.article.id}}</td>
+            <td class="text-center">{{ element.article.name }}</td>
+            <td class="text-center">{{ element.article.price }}€</td>
+            <td class="text-center">{{ element.quantité }}</td>
+            <td class="text-center">{{ element.article.price * element.quantité }}€</td>
+            <td class="text-center"> <a href="{{ path("remove_item" , {id:element.article.id}) }}" class="btn btn-outline-danger">Delete</a> </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" class="text-center"> Votre panier est vide..</td>
+        </tr>
+      {% endfor %}
+        <tr>
+        </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td class="text-center fw-bold" colspan="4">Total</td>
+        <td class="text-center fw-bold">{{ total }} € </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+{% endblock %}
